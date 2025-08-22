@@ -1,0 +1,769 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Element Vape</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        /* Warning Bar */
+        .warning-bar {
+            text-align: center;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-bottom: 2px solid #141313;
+        }
+
+        /* Header Section */
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        .header img {
+            width: 170px;
+            height: auto;
+        }
+
+        /* Icons Section */
+        .icons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .icons img {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .icons img:hover {
+            filter: brightness(0.8);
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background-color: #ffffff;
+            padding: 10px 0;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #000000;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #348265;
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 0;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            width: 250px;
+            padding: 10px;
+            z-index: 10;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content h4 {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .dropdown-content a {
+            display: block;
+            text-decoration: none;
+            color: #000000;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .dropdown-content a:hover {
+            color: #348265;
+        }
+
+        /* Banner Section */
+        .banner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .banners-container {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .banners {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+        }
+
+        .banner {
+            background-color: #780a0a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 30px;
+            min-width: 100%;
+            margin: 0;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Arrows for banner sliding */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 10;
+            font-size: 2rem;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .arrow-left {
+            left: 10px;
+        }
+
+        .arrow-right {
+            right: 10px;
+        }
+
+        /* Product Section */
+        .products {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            text-align: center;
+        }
+
+        .product img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Image Slideshow */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .slide-images {
+            display: flex;
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: auto;
+        }
+
+        .arrow-left-slide,
+        .arrow-right-slide {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .arrow-left-slide {
+            left: 10px;
+        }
+
+        .arrow-right-slide {
+            right: 10px;
+        }
+
+        
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Warning Bar -->
+    <div class="warning-bar">
+        WARNING: This product contains nicotine. Nicotine is an addictive chemical.
+    </div>
+
+    <!-- Header Section -->
+    <div class="header">
+        <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\headless-logo (1).png" alt="Element Vape Logo">
+
+        <!-- Icons Section placed on the right -->
+        <div class="icons">
+            <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\download (1).png" alt="Search Icon">
+            <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\user.png" alt="User Icon">
+            <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\download.png" alt="Shopping Cart Icon">
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#">New</a>
+        <div class="dropdown">
+            <a href="#">Brands</a>
+            <div class="dropdown-content">
+                <h4>Hardware</h4>
+                <a href="#">SMOKTech</a>
+                <a href="#">VOOPOO</a>
+                <a href="#">Geek Vape</a>
+                <a href="#">SPACEMAN</a>
+                <a href="#">GRDNT</a>
+                <a href="#">FreeMaX</a>
+                <a href="#">GRAV Labs</a>
+                <a href="#">Focus V</a>
+                <a href="#">Lost Vape</a>
+                <a href="#">Puffco</a>
+                <a href="#">Uwell</a>
+                <a href="#">Vandy Vape</a>
+                <a href="#">Vaporesso</a>
+                <a href="#">YoCan</a>
+                <a href="#">Hidden Hills</a>
+                <a href="#">CCELL</a>
+                <a href="#">HellVape</a>
+                <a href="#">HorizonTech</a>
+                <a href="#">Puffco</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Starter Kits</a>
+            <div class="dropdown-content">
+                <a href="#">View All Starter Kit</a>
+                <a href="#">View All Box Mods</a>
+                <a href="#">Box Mod Kits</a>
+                <a href="#">Pod Systems</a>
+                <a href="#">Vape Pen Kits</a>
+                <a href="#">Squonk Kits</a>
+                <a href="#">High Power Kits 150W+</a>
+                <a href="#">Clearance Vape Kits</a>
+                <a href="#">Nicotine Pouches</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Disposables</a>
+            <div class="dropdown-content">
+                <h4>Disposable Brands</h4>
+                <a href="#">Pod Juice</a>
+                <a href="#">FLUM Vape</a>
+                <a href="#">SPACEMAN</a>
+                <a href="#">Geek Bar</a>
+                <a href="#">SWFT</a>
+                <a href="#">FIFTY BAR</a>
+                <a href="#">Pillow Talk</a>
+                <a href="#">ORION BAR</a>
+                <a href="#">SOFI</a>
+                <a href="#">RAZ</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">E-Liquids</a>
+            <div class="dropdown-content">
+                <h4>E-Liquids Brands</h4>
+                <a href="#">Naked 100</a>
+                <a href="#">Monster Vape Labs</a>
+                <a href="#">Finest E-Liquid</a>
+                <a href="#">7 Daze E-Liquid</a>
+                <a href="#">Pod Juice</a>
+                <a href="#">Vapetasia</a>
+                <a href="#">Twist E-Liquids</a>
+                <a href="#">Ruthless Vapor</a>
+                <a href="#">Hi-Drip E-Liquid</a>
+                <a href="#">BLVK E-Liquid</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Tanks & RDA</a>
+            <div class="dropdown-content">
+                <h4>Tanks & RDA Brands</h4>
+                <a href="#">Horizon Tech</a>
+                <a href="#">FreeMaX</a>
+                <a href="#">UWELL</a>
+                <a href="#">HellVape</a>
+                <a href="#">Geek Vape</a>
+                <a href="#">Wotofo</a>
+                <a href="#">Vandy Vape</a>
+                <a href="#">Damn Vape</a>
+                <a href="#">Aspire</a>
+                <a href="#">Innokin</a>
+                <a href="#">SMOK</a>
+                <a href="#">Geek Vape</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Vaporizers</a>
+            <div class="dropdown-content">
+                <h4>Alternatives Brands</h4>
+                <a href="#">YoCan</a>
+                <a href="#">Arizer</a>
+                <a href="#">Focus V</a>
+                <a href="#">CCELL</a>
+                <a href="#">Ooze</a>
+                <a href="#">Hamilton Devices</a>
+                <a href="#">Honeystick</a>
+                <a href="#">Grenco Science</a>
+                <a href="#">Boundless</a>
+                <a href="#">Huni Badger</a>
+                <a href="#">Lookah</a>
+                <a href="#">The Kind Pen</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Glass</a>
+            <div class="dropdown-content">
+                <h4>Device Brands</h4>
+                <a href="#">MJ Arsenal</a>
+                <a href="#">GRAV Labs</a>
+                <a href="#">Lookah</a>
+                <a href="#">Ooze</a>
+                <a href="#">EYCE</a>
+                <a href="#">Stratus</a>
+                <a href="#">Puffco</a>
+                <a href="#">Tsunami Premium</a>
+                <a href="#">Santa Cruz Shredder</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#">Accessories</a>
+            <div class="dropdown-content">
+                <h4>Accessories Brands</h4>
+                <a href="#">ZYN</a>
+                <a href="#">LUCY</a>
+                <a href="#">Nitecore</a>
+                <a href="#">Hohm Tech</a>
+                <a href="#">PuffCo</a>
+                <a href="#">Vandy Vape</a>
+                <a href="#">Geek Vape</a>
+                <a href="#">SMOK</a>
+                <a href="#">Suorin</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner Section -->
+    <div class="banner-container" style="margin-bottom: 0;"> <!-- No space between banner and image -->
+        <!-- Left Arrow -->
+        <div class="arrow arrow-left" onclick="prevBanner()">&#60;</div>
+
+        <!-- Banners (They are now in the same container and will slide) -->
+        <div class="banners-container">
+            <div class="banners">
+                <div class="banner">
+                    <div class="banner-text">
+                        25% Off Disposables | Code: CLOSEUE33
+                    </div>
+                </div>
+
+                <div class="banner">
+                    <div class="banner-text">
+                        30% Off Uwell Caliburn G3 Series Kit | Code: UWELLG3
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Arrow -->
+        <div class="arrow arrow-right" onclick="nextBanner()">&#62;</div>
+    </div>
+
+    <!-- Image Slideshow Section -->
+    <div class="slideshow-container">
+        <!-- Left Arrow for Slideshow -->
+        <div class="arrow-left-slide" onclick="prevSlide()">&#60;</div>
+
+        <!-- Slide Images -->
+        <div class="slide-images">
+            <div class="slide">
+                <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\description.png" 
+                     alt="Image Description 1" 
+                     style="width: 100%; height: 50;">
+            </div>
+            <div class="slide">
+                <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\3.png" 
+                     alt="Image Description 2" 
+                     style="width: 100%; height: 50;">
+            </div>
+            <div class="slide">
+                <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\2.png" 
+                     alt="Image Description 3" 
+                     style="width: 100%; height:50;">
+            </div>
+        </div>
+
+        <!-- Right Arrow for Slideshow -->
+        <div class="arrow-right-slide" onclick="nextSlide()">&#62;</div>
+    </div>
+
+    <script>
+        let currentBanner = 0;
+        const banners = document.querySelector('.banners');
+        const totalBanners = document.querySelectorAll('.banner').length;
+
+        function nextBanner() {
+            if (currentBanner < totalBanners - 1) {
+                currentBanner++;
+            } else {
+                currentBanner = 0;
+            }
+            updateBannerPosition();
+        }
+
+        function prevBanner() {
+            if (currentBanner > 0) {
+                currentBanner--;
+            } else {
+                currentBanner = totalBanners - 1;
+            }
+            updateBannerPosition();
+        }
+
+        function updateBannerPosition() {
+            const offset = -currentBanner * 100;
+            banners.style.transform = `translateX(${offset}%)`;
+        }
+
+        // Slideshow code
+        let currentSlide = 0;
+        const slides = document.querySelector('.slide-images');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+            } else {
+                currentSlide = 0;
+            }
+            updateSlidePosition();
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+            } else {
+                currentSlide = totalSlides - 1;
+            }
+            updateSlidePosition();
+        }
+
+        function updateSlidePosition() {
+            const offset = -currentSlide * 100;
+            slides.style.transform = `translateX(${offset}%)`;
+        }
+    </script>
+           <style>
+            .container {
+                padding: 20px;
+                background-color: #f8f8f8;
+                text-align: center;
+            }
+    
+            .container-header h2 {
+                font-size: 1.5rem;
+                color: #000000;
+                margin-bottom: 10px;
+            }
+    
+            .container-header p {
+                font-size: 0.9rem;
+                color: #555555;
+                margin-bottom: 20px;
+            }
+    
+            .container-content {
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+    
+            .card {
+                background-color: #ffffff;
+                border: 1px solid #e0e0e0;
+                border-radius: 10px;
+                padding: 15px;
+                width: 250px;
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+    
+            .card img {
+                width: 100%;
+                height: auto;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+    
+            .card h3 {
+                font-size: 1rem;
+                color: #000000;
+                margin: 10px 0;
+            }
+    
+            .card p {
+                font-size: 0.9rem;
+                color: #555555;
+            }
+    
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    
+    
+    
+        
+        <!-- Updated Container Section with Buttons -->
+        <div class="container">
+            <div class="container-header">
+                <h2>Best Vape of 2024</h2>
+                <p>Discover a variety of products and categories</p>
+            </div>
+            <div class="container-content">
+                <div class="card">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\p3.webp" alt="Product 1">
+                    <h3>Trending!!</h3>
+                    <p>A must-have product that combines innovation, style, and performance.</p>
+                    <button onclick="window.location.href='#';">Shop Now</button>
+                </div>
+                <div class="card">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\111.webp" alt="Product 2">
+                    <h3>New Arrival</h3>
+                    <p>Be the first to experience our latest release!</p>
+                    <button onclick="window.location.href='#';">Shop Now</button>
+                </div>
+                <div class="card">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\11.webp" alt="Product 3">
+                    <h3>New Disposables</h3>
+                    <p>Enjoy convenience and flavor in every puff with our brand-new disposables.</p>
+                    <button onclick="window.location.href='#';">Shop Now</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="header">
+            <h1>Trending
+
+            </h1>
+        </div>
+        <div class="container">
+            <div class="products">
+                <div class="product">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\Fasta.png" alt="Product 1">
+                    <h3>Fasta burrst</h3>
+                    <p>$ 13.99</p>
+                    <button>Add to Cart</button>
+                </div>
+                <div class="product">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\Adjust.png" alt="Product 2">
+                    <h3>Adjust MY cOOL</h3>
+                    <p>11$</p>
+                    <button>Add to Cart</button>
+                </div>
+                <div class="product">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\OXbar.png" alt="Product 3">
+                    <h3>OXBAR Ice-Nic Control 35K</h3>
+                    <p>$ 16.66</p>
+                    <button>Add to Cart</button>
+                </div>
+                <div class="product">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\LVe.png" alt="Product 3">
+                    <h3>LVE Orion Pico 25W Pod System</h3>
+                    <p>$ 26.99</p>
+                    <button>Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\yocan.png" alt="Product 3">
+                    <h3>Yocan Black sip</h3>
+                    <p>$ 99.99</p>
+                    <button>Add to Cart</button>
+                </div>
+            </div>
+    
+            <div class="best-sellers">
+                <h2>Best Sellers</h2>
+                <div class="products">
+                    <div class="product">
+                        <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\b1.png" alt="Best Seller 1">
+                        <h3>Geek Vape Aegis Legend 3 200W Starter Kit</h3>
+                        <p>$ 64.56</p>
+                        <button>Add to Cart</button>
+                    </div>
+                    <div class="product">
+                        <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\b2.png" alt="Best Seller 2">
+                        <h3> Vaporesso GEN MAX 220W Starter Kit</h3>
+                        <p>$ 59.99</p>
+                        <button>Add to Cart</button>
+                    </div>
+                    <div class="product">
+                        <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\b3.png" alt="Best Seller 3">
+                        <h3>Vaporesso XROS 4 Pod Kit</h3>
+                        <p>$ 28.99</p>
+                        <button>Add to Cart</button>
+                    </div>
+
+                    <div class="product">
+                        <img src="D:\Webs starting\web project (3)\web project (2)\web project\images\b4.png" alt="Best Seller 3">
+                        <h3>Geek Bar Pulse X 25K Disposable</h3>
+                        <p>$ 18.99</p>
+                        <button>Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+ <!-- Footer Section -->
+<div style="text-align: center; margin: 30px 0;">
+    <button style="padding: 10px 25px; border: 1px solid #000; background: transparent; cursor: pointer; font-size: 14px; font-weight: bold; letter-spacing: 1px;">LOAD MORE</button>
+</div>
+
+<!-- Newsletter Section -->
+<div style="background-color: #000; color: #fff; padding: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 200px; margin-right: 20px;">
+        <h2 style="margin: 0; font-size: 18px; text-transform: uppercase;">Newsletter</h2>
+        <p style="margin: 8px 0 0; font-size: 12px; line-height: 1.5;">Get special offers and find out what's new in the store. Sign up for the EV newsletter.</p>
+    </div>
+    <div style="display: flex; flex: 1; min-width: 200px; align-items: center;">
+        <input type="email" placeholder="Enter your email address" style="padding: 8px; border: none; outline: none; flex: 1; font-size: 12px; margin-right: 8px;">
+        <button style="background: none; border: 1px solid #fff; color: #fff; padding: 8px 12px; cursor: pointer; font-size: 14px;">→</button>
+    </div>
+</div>
+
+<!-- Links Section -->
+<div style="padding: 30px 20px; display: flex; justify-content: space-between; flex-wrap: wrap; color: #333;">
+    <div style="min-width: 150px; margin-bottom: 15px;">
+        <h3 style="font-size: 14px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;">Follow Us</h3>
+        <div style="display: flex; gap: 12px; font-size: 16px;">
+            <a href="#" style="text-decoration: none; color: #333;">Instagram</a>
+            <a href="#" style="text-decoration: none; color: #333;">Facebook</a>
+            <a href="#" style="text-decoration: none; color: #333;">Twitter</a>
+            <a href="#" style="text-decoration: none; color: #333;">Vimeo</a>
+            <a href="#" style="text-decoration: none; color: #333;">Pinterest</a>
+        </div>
+    </div>
+    <div style="min-width: 150px; margin-bottom: 15px;">
+        <h3 style="font-size: 14px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;">Need Help?</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Contact Us</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Check Order Status</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Shipping & Handling</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Returns & Exchange</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Payment Options</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Help Center</a></li>
+        </ul>
+    </div>
+    <div style="min-width: 150px; margin-bottom: 15px;">
+        <h3 style="font-size: 14px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;">Info</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">About Us</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Blog</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Reviews</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Coupons</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Reward Program</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Age Policy</a></li>
+        </ul>
+    </div>
+    <div style="min-width: 150px; margin-bottom: 15px;">
+        <h3 style="font-size: 14px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;">Resources</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">2024 Top 10 Vape</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Guide to Bongs & Water Pipes</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">#1 Best Online Vape Store</a></li>
+            <li style="margin-bottom: 6px;"><a href="#" style="text-decoration: none; color: #333; font-size: 12px;">Shop Vape Clearance</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Disclaimer Section -->
+<div style="padding: 15px; font-size: 10px; color: #777; line-height: 1.5; border-top: 1px solid #ccc;">
+    <p>Not for Sale for Minors - Products sold on this site may contain nicotine which is a highly addictive substance. California Proposition 65 - WARNING: This product can expose you to chemicals including nicotine, which is known to the State of California to cause birth defects or other reproductive harm. For more information, go to Proposition 65 Warnings Website. Products sold on this site is intended for adult smokers. You must be of legal smoking age in your territory to purchase products. Please consult your physician before use. E-Juice on our site may contain Propylene Glycol and/or Vegetable Glycerin, Nicotine and Flavorings. Our products may be poisonous if orally ingested. FDA DISCLAIMER: The statements made regarding these products have not been evaluated by the Food and Drug Administration. The efficacy of these products has not been confirmed by FDA-approved research. These products are not intended to diagnose, treat, cure or prevent any disease. All information presented here is not meant as a substitute for or alternative to information from health care practitioners. For their protection, please keep out of reach of children and pets. Read our terms and conditions page before purchasing our products. Use All Products On This Site At Your Own Risk!</p>
+</div>
+
+<!-- Copyright Section -->
+<div style="text-align: center; padding: 15px; font-size: 12px; color: #333; background: #f9f9f9;">
+    <p>Copyright © 2024 Element Vape. All Rights Reserved.</p>
+</div>
+
+
+</body>
+
+</html>
